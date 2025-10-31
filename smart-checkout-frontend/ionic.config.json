@@ -1,0 +1,7 @@
+{
+  "name": "smart-checkout-frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
