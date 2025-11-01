@@ -44,7 +44,7 @@ const buyNow = async (req, res) => {
     });
   } catch (err) {
     logger.error(`Error in Buy Now: ${err.message}`);
-    return res.status(500).json({ message: "Server error in Buy Now" });
+    return res.status(500).json({ message: "Server error in Buy Now" });
   }
 };
 

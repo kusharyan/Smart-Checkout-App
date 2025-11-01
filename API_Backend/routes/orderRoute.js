@@ -3,6 +3,6 @@ const router = express.Router();
 const {buyNow} = require('../controllers/ordersController');
 const { verifyToken } = require('../middlewares/authMiddleware');
 
-router.post('/buy-now', verifyToken, buyNow);
+router.post('/buyNow', verifyToken, buyNow);
 
 module.exports = router;
