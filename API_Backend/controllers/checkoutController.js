@@ -35,7 +35,7 @@ const checkout = async (req, res)=> {
     } else{
       return res.status(400).json({ message: 'Invalid source for checkout!' });
     }
-    const orderQuery = `INSERT INTO orders(user_id, total_amount, status) VALUES(?, ?, 'pending')`;
+    const orderQuery = `INSERT INTO orders(user_id, total_price, status) VALUES(?, ?, 'pending')`;
     const [orderResult] = await pool.execute(orderQuery, [userId, totalAmount]); 
     const orderId = orderResult.insertId;
     for(const item of items){

@@ -37,28 +37,53 @@ const addToCart = async(req, res)=> {
   }
 }
 
-const viewCartItems = async(req, res)=> {
+// const viewCartItems = async(req, res)=> {
+//   const userId = req.user.id;
+//   try{
+//     const query = `Select * From cart where user_id = ?`;
+//     const [cartRows] = await pool.execute(query, [userId]);
+//     if(cartRows.length == 0){
+//       return res.status(200).json({message: `Cart is empty!`, items: []});
+//     }
+//     const cartId = cartRows[0].id;
+//     const [items] = await pool.execute(
+//       `SELECT ci.id, p.name, p.price, ci.quantity, (p.price * ci.quantity) AS total
+//        FROM cart_items ci
+//        JOIN products p ON ci.product_id = p.id
+//        WHERE ci.cart_id = ?`,
+//       [cartId]
+//     );
+//     const totalAmount = items.reduce((sum, i) => sum + parseFloat(i.total), 0);
+//     return res.status(200).json({items, totalAmount});
+//   } catch(err){
+//     logger.error(`Error Viewing Cart Items, ERROR: ${err.message}`);
+//     return res.status(500).json({ message: `Error Viewing Cart Items${err.message}`});
+//   }
+// }
+
+const viewCartItems = async (req, res) => {
   const userId = req.user.id;
-  try{
-    const query = `Select * From cart where user_id = ?`;
-    const [cartRows] = await pool.execute(query, [userId]);
-    if(cartRows.length == 0){
-      return res.status(200).json({message: `Cart is empty!`, items: []});
-    }
-    const cartId = cartRows[0].id;
+  try {
     const [items] = await pool.execute(
       `SELECT ci.id, p.name, p.price, ci.quantity, (p.price * ci.quantity) AS total
        FROM cart_items ci
        JOIN products p ON ci.product_id = p.id
-       WHERE ci.cart_id = ?`,
-      [cartId]
+       JOIN cart c ON ci.cart_id = c.id
+       WHERE c.user_id = ? AND c.is_active = TRUE`,
+      [userId]
     );
+
+    if (items.length === 0) {
+      return res.status(200).json({ message: "Cart is empty", items: [] });
+    }
+
     const totalAmount = items.reduce((sum, i) => sum + parseFloat(i.total), 0);
-    return res.status(200).json({items, totalAmount});
-  } catch(err){
+    return res.status(200).json({ message: `Cart items of userId ${userId}`, items, totalAmount });
+  } catch (err) {
     logger.error(`Error Viewing Cart Items, ERROR: ${err.message}`);
-    return res.status(500).json({ message: `Error Viewing Cart Items${err.message}`});
+    return res.status(500).json({ message: `Error Viewing Cart Items ${err.message}` });
   }
-}
+};
+
 
 module.exports = { addToCart, viewCartItems };
