@@ -48,4 +48,28 @@ const login = async (req, res) => {
   }
 }
 
-module.exports = { signup, login };
+const getAllUsers = async(req, res)=> {
+  try{
+    const query = `Select id, name, email, role_id from users`;
+    const [users] = await pool.execute(query);
+    return res.status(200).json({ users });
+  } catch(err){
+    logger.error(`Error fetching users: ${err.message}`);
+    return res.status(500).json({ message: `Error fetching users`});
+  }
+}
+
+const deleteUser = async(req, res)=> {
+  const userId =req.params.id;
+  try{
+    const deleteQuery = `DELETE FROM users WHERE id = ?`;
+    await pool.execute(deleteQuery, [userId]);
+    logger.info(`User Deleted Successfully: ${userId}`);
+    return res.status(200).json({ message: `User Deleted Successfully`});
+  } catch(err){
+    logger.error(`Error deleting user: ${err.message}`);
+    return res.status(500).json({ message: `Error deleting user`});
+  }
+}
+
+module.exports = { signup, login, getAllUsers, deleteUser };

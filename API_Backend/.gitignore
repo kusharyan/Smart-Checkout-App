@@ -1,7 +1,7 @@
 # Node modules
 node_modules/
 
-# Environment files (very important)
+# Environment files
 .env
 .env.local
 .env.development.local
@@ -23,7 +23,7 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Build artifacts (if you ever use build tools)
+# Build artifacts
 dist/
 build/
 
@@ -33,7 +33,7 @@ build/
 .cache/
 .tmp/
 
-# Optional lock files (if you prefer not to commit them)
+# Optional lock files
 # package-lock.json
 # yarn.lock
 
@@ -42,8 +42,23 @@ build/
 *.seed
 *.pid.lock
 
-# Database or dumps (if any in future)
+# Database or dumps
 *.sql
 *.sqlite
 *.db
 *.db-journal
+
+# Swagger auto-generated docs (optional)
+swagger.json
+
+# Test coverage
+coverage/
+
+# Docker and CI configs
+.dockerignore
+.env.*
+docker-compose.yml
+
+# File uploads (if used)
+uploads/
+tmp/

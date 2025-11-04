@@ -1,5 +1,8 @@
 require('dotenv').config();
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
+
 const authRoute = require('./routes/authRoute');
 const productRoute = require('./routes/productRoute');
 const cartRoute = require('./routes/cartRoutes');
@@ -16,6 +19,7 @@ app.use('/api', productRoute);
 app.use('/cart', cartRoute);
 app.use('/order', orderRoute);
 app.use('/cart', checkoutRoute)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(port, ()=> {
   console.log(`Server is running on port ${port}`);
