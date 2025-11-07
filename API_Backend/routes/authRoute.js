@@ -4,6 +4,32 @@ const router = express.Router();
 const {signup, login, getAllUsers, deleteUser} = require('../controllers/authController');
 const { verifyToken, isAdmin } = require('../middlewares/authMiddleware');
 
+
+/**
+ * @swagger
+ * /auth/getAllUsers:
+ *   get:
+ *     summary: Get all users
+ *     description: Allows an admin to view all registered users.
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Users fetched successfully"
+ *       401:
+ *         description: Unauthorized (missing or invalid token)
+ *       500:
+ *         description: Internal server error
+ */
 router.get('/getAllUsers', verifyToken, isAdmin, getAllUsers)
 
 /**
@@ -82,9 +108,44 @@ router.post('/signup', signup);
  *       500:
  *         description: Internal server error
  */
-
 router.post('/login', login);
 
+/**
+ * @swagger
+ * /auth/deleteUser/{id}:
+ *   delete:
+ *     summary: Delete a user by ID
+ *     description: Allows an admin to delete a specific user account by ID.
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []   # Requires JWT token
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the user to delete
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User deleted successfully"
+ *       401:
+ *         description: Unauthorized (missing or invalid token)
+ *       403:
+ *         description: Forbidden (only admins can delete users)
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
 router.delete('/deleteUser/:id', verifyToken, isAdmin, deleteUser)
 
 module.exports = router;

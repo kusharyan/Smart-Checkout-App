@@ -1,0 +1,47 @@
+<ion-content [fullscreen]="true">
+  <div class="ion-padding text-center">
+    <h2>Smart Checkout App</h2>
+  </div>
+
+  <div class="ion-padding text-center">
+    <h4>User Login</h4>
+  </div>
+
+  <form (ngSubmit)="onLonginFormSubmit()" [formGroup]="loginForm">
+    <ion-item>
+      <ion-icon name="mail-sharp"></ion-icon>
+      <ion-input placeholder="Enter your Email Address" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-note color="danger">
+      <small *ngIf="loginForm.get('email')?.valid && loginForm.get('email')?.touched">
+        *Enter Valid Email Address
+      </small>
+    </ion-note>
+
+    <ion-item class="ion-padding-bottom">
+      <ion-icon name="lock-closed"></ion-icon>
+      <ion-input type="password" placeholder="Password" formControlName="password">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+    </ion-item>
+
+    <div>
+      <ion-note color="danger">
+        <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          *Enter a Valid Password..
+        </small>
+      </ion-note>
+    </div>
+
+    <div>
+      <ion-note color="danger">
+        <small *ngIf="loginForm.get('password')?.errors?.['minlength'] && loginForm.get('password')?.touched">
+          Password should atleast 6 characters...
+        </small>
+      </ion-note>
+    </div>
+
+    <ion-button color="secondary" expand="block" class="ion-padding" type="submit" [disabled]="loginForm.invalid">Signup</ion-button>
+
+  </form>
+</ion-content>

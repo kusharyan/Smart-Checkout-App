@@ -1,5 +1,8 @@
 require('dotenv').config();
+
 const express = require('express');
+const cors = require('cors');
+
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger');
 
@@ -10,6 +13,7 @@ const orderRoute = require('./routes/orderRoute');
 const checkoutRoute = require('./routes/checkoutRoute');
 
 const app = express();
+app.use(cors());
 const port = Number(process.env.PORT) || 3000;
 
 app.use(express.json());

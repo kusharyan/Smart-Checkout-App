@@ -9,7 +9,10 @@ const signup = async (req, res) => {
   const { name, email, password, role_id} = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const assignedRole = role_id || 2;
+    let assignedRole = 2;
+    if(req.user && req.user.role_id === 1 && role_id === 1){
+      assignedRole = role_id;
+    }
     const query = `INSERT INTO users(email, name, password, role_id) VALUES(?, ?, ?, ?)`;
     const [result] = await pool.execute(query, [email, name, hashedPassword, assignedRole]);
     logger.info(`User Created Successfully!`)
@@ -17,7 +20,7 @@ const signup = async (req, res) => {
       .status(200)
       .json({
         message: "User Created Successfully!",
-        user: { id: result.insertId, name, role_id },
+        user: { id: result.insertId, name, email, role_id },
       });
   } catch (err) {
     logger.error(`Error during signup: ${err.message}`);

@@ -1,0 +1,57 @@
+<ion-content [fullscreen]="true">
+  <div class="ion-padding text-center">
+    <h2>Smart Checkout App</h2>
+  </div>
+
+  <div class="ion-padding text-center">
+    <h3>User Signup Form</h3>
+  </div>
+
+  <form (ngSubmit)="onSignupFormSubmit()" [formGroup]="signupForm" class="ion-padding">
+    <ion-item>
+      <ion-icon name="person"></ion-icon>
+      <ion-input type="text" placeholder="Enter Name" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-note color="danger">
+      <small *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched">
+        *Enter Valid UserName
+      </small>
+    </ion-note>
+
+    <ion-item>
+      <ion-icon name="mail-sharp"></ion-icon>
+      <ion-input type="text" placeholder="Enter Your Email Address" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-note color="danger">
+      <small *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+        *Enter Valid Email Address
+      </small>
+    </ion-note>
+
+    <ion-item class="ion-padding-bottom">
+      <ion-icon name="lock-closed"></ion-icon>
+      <ion-input type="password" placeholder="Password" formControlName="password">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+    </ion-item>
+
+    <div>
+      <ion-note color="danger">
+        <small *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+          *Enter a Valid Password..
+        </small>
+      </ion-note>
+    </div>
+
+    <div>
+      <ion-note color="danger">
+        <small *ngIf="signupForm.get('password')?.errors?.['minlength'] && signupForm.get('password')?.touched">
+          Password should atleast 6 characters...
+        </small>
+      </ion-note>
+    </div>
+
+    <ion-button color="secondary" expand="block" class="ion-padding" type="submit" [disabled]="signupForm.invalid">Signup</ion-button>
+
+  </form>
+</ion-content>
