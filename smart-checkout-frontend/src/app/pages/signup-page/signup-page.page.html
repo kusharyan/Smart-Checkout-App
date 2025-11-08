@@ -46,12 +46,15 @@
     <div>
       <ion-note color="danger">
         <small *ngIf="signupForm.get('password')?.errors?.['minlength'] && signupForm.get('password')?.touched">
-          Password should atleast 6 characters...
+          Password should atleast 5 characters...
         </small>
       </ion-note>
     </div>
 
     <ion-button color="secondary" expand="block" class="ion-padding" type="submit" [disabled]="signupForm.invalid">Signup</ion-button>
 
+    <div>
+      <ion-text class="ion-text-center">Already have an account? <a routerLink="/login">Login</a></ion-text>
+    </div>
   </form>
 </ion-content>

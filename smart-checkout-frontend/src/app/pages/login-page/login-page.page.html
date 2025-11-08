@@ -1,14 +1,14 @@
 <ion-content [fullscreen]="true">
-  <div class="ion-padding text-center">
-    <h2>Smart Checkout App</h2>
+  <div class="ion-text-center">
+    <h2 class="ion-padding">Smart Checkout App</h2>
   </div>
 
-  <div class="ion-padding text-center">
-    <h4>User Login</h4>
+  <div class="ion-text-center">
+    <h4 claas="ion-padding">User Login</h4>
   </div>
 
   <form (ngSubmit)="onLonginFormSubmit()" [formGroup]="loginForm">
-    <ion-item>
+    <ion-item class="ion-padding-bottom">
       <ion-icon name="mail-sharp"></ion-icon>
       <ion-input placeholder="Enter your Email Address" formControlName="email"></ion-input>
     </ion-item>
@@ -36,12 +36,15 @@
     <div>
       <ion-note color="danger">
         <small *ngIf="loginForm.get('password')?.errors?.['minlength'] && loginForm.get('password')?.touched">
-          Password should atleast 6 characters...
+          Password should atleast 5 characters...
         </small>
       </ion-note>
     </div>
 
     <ion-button color="secondary" expand="block" class="ion-padding" type="submit" [disabled]="loginForm.invalid">Signup</ion-button>
 
+    <div class="ion-text-center">
+      <ion-text>Don't have an account? <a routerLink="/signup">Regiester</a></ion-text>
+    </div>
   </form>
 </ion-content>

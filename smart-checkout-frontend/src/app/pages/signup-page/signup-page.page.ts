@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  IonContent, IonIcon, IonItem, IonInput, IonNote, IonInputPasswordToggle, IonButton } from '@ionic/angular/standalone';
+  IonContent, IonIcon, IonItem, IonInput, IonNote, IonInputPasswordToggle, IonButton, IonText } from '@ionic/angular/standalone';
 import { Auth } from 'src/app/services/authService/auth';
 import { NavController } from '@ionic/angular';
 import { Loader } from 'src/app/services/loaderService/loader';
@@ -16,18 +16,20 @@ import { authResponse } from 'src/app/models/auth.model';
 import { person, lockClosed, mailSharp } from 'ionicons/icons'
 import { addIcons } from 'ionicons';
 import { Subscription } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signup-page',
   templateUrl: './signup-page.page.html',
   styleUrls: ['./signup-page.page.scss'],
   standalone: true,
-  imports: [IonButton, IonNote, IonInput, IonIcon, IonInputPasswordToggle,
+  imports: [IonText, IonButton, IonNote, IonInput, IonIcon, IonInputPasswordToggle,
     IonItem,
     IonContent,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
 })
 export class SignupPagePage implements OnInit {

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonFooter } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.page.html',
-  styleUrls: ['./home-page.page.scss'],
+  selector: 'app-admin-dashboard-page',
+  templateUrl: './admin-dashboard-page.page.html',
+  styleUrls: ['./admin-dashboard-page.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
-export class HomePagePage implements OnInit {
+export class AdminDashboardPagePage implements OnInit {
 
   constructor() { }
 

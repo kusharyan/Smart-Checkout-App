@@ -18,4 +18,8 @@ export const routes: Routes = [
     path: 'home',
     loadComponent: () => import('./pages/home-page/home-page.page').then( m => m.HomePagePage)
   },
+  {
+    path: 'admin-dashboard',
+    loadComponent: () => import('./pages/admin-dashboard-page/admin-dashboard-page.page').then( m => m.AdminDashboardPagePage)
+  },
 ];

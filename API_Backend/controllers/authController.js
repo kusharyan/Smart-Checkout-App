@@ -44,7 +44,14 @@ const login = async (req, res) => {
       return res.status(401).json({ message: `Enter Valid Password`})
     }
     const token = await jwt.sign({id: user.id, role_id: user.role_id}, process.env.JWT_SECRET, { expiresIn: '1h'});
-    return res.status(200).json({ message : `Login Successfull!`, user: { id: user.id, name: user.name}, token});
+    logger.info(`User Login Successfull: ${user.id}`);
+    return res
+      .status(200)
+      .json({
+        message: `Login Successfull!`,
+        token,
+        user: { id: user.id, name: user.name, role_id: user.role_id },
+      });
   } catch(err){
     logger.error(`Error Login user ${err.message}`);
     return res.status(500).json({ message: `Interval server error`});
@@ -55,6 +62,7 @@ const getAllUsers = async(req, res)=> {
   try{
     const query = `Select id, name, email, role_id from users`;
     const [users] = await pool.execute(query);
+    logger.info(`Fetched all users successfully`);
     return res.status(200).json({ users });
   } catch(err){
     logger.error(`Error fetching users: ${err.message}`);

@@ -17,8 +17,7 @@ import {
   IonInput,
   IonNote,
   IonButton,
-  IonInputPasswordToggle,
-} from '@ionic/angular/standalone';
+  IonInputPasswordToggle, IonText } from '@ionic/angular/standalone';
 import { Subscription } from 'rxjs';
 import { Auth } from 'src/app/services/authService/auth';
 import { NavController } from '@ionic/angular';
@@ -26,13 +25,14 @@ import { Loader } from 'src/app/services/loaderService/loader';
 import { authResponse } from 'src/app/models/auth.model';
 import { addIcons } from 'ionicons';
 import { mailSharp, lockClosed } from 'ionicons/icons';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.page.html',
   styleUrls: ['./login-page.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonText, 
     IonButton,
     IonNote,
     IonInput,
@@ -43,6 +43,7 @@ import { mailSharp, lockClosed } from 'ionicons/icons';
     FormsModule,
     ReactiveFormsModule,
     IonInputPasswordToggle,
+    RouterLink
   ],
 })
 export class LoginPagePage implements OnInit {
@@ -55,7 +56,7 @@ export class LoginPagePage implements OnInit {
     private fb: FormBuilder,
     private loader: Loader
   ) {
-    addIcons({lockClosed, mailSharp})
+    addIcons({mailSharp,lockClosed});
   }
 
   ngOnInit() {
@@ -75,7 +76,12 @@ export class LoginPagePage implements OnInit {
           next: async (response: any) => {
             this.authService.saveToken(response.token);
             localStorage.setItem('user', JSON.stringify(response.user));
-            this.navCtrl.navigateForward('home');
+            await this.loader.hideLoader();
+            if(response.user.role_id === 1){
+              this.navCtrl.navigateForward('/admin-dashboard');
+            } else {
+              this.navCtrl.navigateForward('/home');
+            }
           },
           error: (error) => {
             console.error(
