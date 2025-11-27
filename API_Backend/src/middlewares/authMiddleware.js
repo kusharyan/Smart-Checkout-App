@@ -1,6 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const logger = require('../logger');
+const logger = require('../config/logger');
 
 const verifyToken = async (req, res, next) => {
   const token = req.header("Authorization")?.split(" ")[1];

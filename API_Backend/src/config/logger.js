@@ -2,7 +2,7 @@ const winston = require('winston');
 require('winston-daily-rotate-file');
 
 const transport = new winston.transports.DailyRotateFile({
-  filename: 'logs/app-%DATE%.log',
+  filename: 'src/logs/app-%DATE%.log',
   datePattern: 'DD-MM-YYYY',
   zippedArchive: true,
   maxSize: '20m',
@@ -17,7 +17,6 @@ const logger = winston.createLogger({
   ),
   transports: [
     new winston.transports.Console(),
-    // new winston.transports.File({ filename: 'auth.log'}),
     transport
   ]
 })

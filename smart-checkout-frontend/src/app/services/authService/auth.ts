@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs';
 import { loginCredentials, signupCredentials } from 'src/app/models/auth.model';
 
 @Injectable({
@@ -22,11 +23,19 @@ export class Auth {
     return localStorage.setItem('token', token);
   }
 
-  getToken(token: string) {
+  getToken() {
     return localStorage.getItem('token');
+  }
+
+  getUser() {
+    return JSON.parse(localStorage.getItem('user')!);
   }
 
   removeToken(token:string) {
     return localStorage.clear();
+  }
+
+  isLoggedIn(){
+    return !!this.getToken();
   }
 }

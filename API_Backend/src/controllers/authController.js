@@ -1,15 +1,14 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const pool = require('../db/db');
-const logger = require('../logger');
+const pool = require('../config/db');
+const logger = require('../config/logger');
 
-//user signup
 const signup = async (req, res) => {
   const { name, email, password, role_id} = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    let assignedRole = 2;
+    let assignedRole = role_id ?? 2;// role_id 2 is for regular user by default
     if(req.user && req.user.role_id === 1 && role_id === 1){
       assignedRole = role_id;
     }
@@ -20,7 +19,7 @@ const signup = async (req, res) => {
       .status(200)
       .json({
         message: "User Created Successfully!",
-        user: { id: result.insertId, name, email, role_id },
+        user: { id: result.insertId, name, email, role_id: assignedRole },
       });
   } catch (err) {
     logger.error(`Error during signup: ${err.message}`);
@@ -28,7 +27,6 @@ const signup = async (req, res) => {
   }
 };
 
-// user login
 const login = async (req, res) => {
   const { email, password}  =req.body;
   try{
@@ -70,16 +68,24 @@ const getAllUsers = async(req, res)=> {
   }
 }
 
-const deleteUser = async(req, res)=> {
-  const userId =req.params.id;
-  try{
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    logger.error(`No user id provided in params`);
+    return res.status(400).json({ message: `User id is required` });
+  }
+  try {
     const deleteQuery = `DELETE FROM users WHERE id = ?`;
-    await pool.execute(deleteQuery, [userId]);
-    logger.info(`User Deleted Successfully: ${userId}`);
-    return res.status(200).json({ message: `User Deleted Successfully`});
-  } catch(err){
+    const [result] = await pool.execute(deleteQuery, [id]);
+    if (result && result.affectedRows === 0) {
+      logger.warn(`No user found with id: ${id}`);
+      return res.status(404).json({ message: `User not found` });
+    }
+    logger.info(`User Deleted Successfully: ${id}`);
+    return res.status(200).json({ message: `User Deleted Successfully` });
+  } catch (err) {
     logger.error(`Error deleting user: ${err.message}`);
-    return res.status(500).json({ message: `Error deleting user`});
+    return res.status(500).json({ message: `Error deleting user ${err.message}` });
   }
 }
 
