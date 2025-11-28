@@ -48,8 +48,6 @@ router.get('/', verifyToken, isAdmin, getAllUsers)
  *                 type: string
  *               password:
  *                 type: string
- *               role_id:
- *                 type: integer
  *     responses:
  *       200:
  *         description: User created successfully
