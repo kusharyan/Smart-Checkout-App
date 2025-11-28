@@ -9,7 +9,7 @@ const swaggerSpec = require('./src/config/swagger');
 
 const authRoute = require('./src/routes/authRoute');
 const productRoute = require('./src/routes/productRoute');
-const cartRoute = require('./src/routes/cartRoutes');
+const cartRoute = require('./src/routes/cartRoute');
 const orderRoute = require('./src/routes/orderRoute');
 const checkoutRoute = require('./src/routes/checkoutRoute');
 
