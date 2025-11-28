@@ -39,7 +39,7 @@ const checkoutCart = async (req, res) => {
       totalAmount += item.price * item.quantity;
     }
     const [orderResult] = await pool.execute(
-      `INSERT INTO orders (user_id, total_amount) VALUES (?, ?)`,
+      `INSERT INTO orders (user_id, total_price) VALUES (?, ?)`,
       [userId, totalAmount]
     );
 

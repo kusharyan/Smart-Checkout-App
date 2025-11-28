@@ -26,7 +26,7 @@ const addToCart = async(req, res)=> {
       const [addItemRows] = await pool.execute(addItemQuery, [cartId, product_id, quantity]);
     }
     logger.info(`Item Added to Cart Successfully! ${userId}`);
-    return res.status(200).json({message:`Item Added to Cart!`});
+    return res.status(200).json({message:`Item Added to Cart!`, cart_id: cartId, product_id, quantity});
   } catch(err){
     logger.error(`Error Adding to Cart, ERROR: ${err.message}`);
     return res.status(500).json({ message: `Error Adding to Cart${err.message}`});

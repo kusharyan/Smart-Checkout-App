@@ -6,7 +6,7 @@ const viewUserOrders = async (req, res) => {
 
   try {
     const [orders] = await pool.execute(
-      `SELECT id, total_amount, status, created_at
+      `SELECT id, total_price, status, created_at
        FROM orders
        WHERE user_id = ?
        ORDER BY created_at DESC`,

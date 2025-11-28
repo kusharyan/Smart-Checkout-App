@@ -14,8 +14,6 @@ const orderRoute = require('./src/routes/orderRoute');
 const checkoutRoute = require('./src/routes/checkoutRoute');
 
 const app = express();
-// const applySecurity = require('./src/middlewares/securityMiddleware');
-// applySecurity(app); 
 app.use(cors());
 
 const port = Number(process.env.PORT);
@@ -24,10 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/auth', authRoute);
-app.use('/api', productRoute);
+app.use('/product', productRoute);
 app.use('/cart', cartRoute);
-app.use('/order', orderRoute);
 app.use('/cart', checkoutRoute);
+app.use('/order', orderRoute);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
