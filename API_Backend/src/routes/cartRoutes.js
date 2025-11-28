@@ -18,7 +18,7 @@ const { verifyToken } = require('../middlewares/authMiddleware');
  *     tags: [Cart]
  *     description: Adds product to active cart or updates quantity if already exists
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -58,7 +58,7 @@ router.post('/add', verifyToken, addToCart);
  *     tags: [Cart]
  *     description: Fetch all cart items of the logged-in user
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Cart items retrieved
@@ -88,7 +88,7 @@ router.get('/', verifyToken, viewCartItems);
  *     tags: [Cart]
  *     description: Removes a specific cart item belonging to logged-in user
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

@@ -17,7 +17,7 @@ const { verifyToken, isAdmin } = require('../middlewares/authMiddleware');
  *     summary: Get all users
  *     tags: [Auth]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: List of users
@@ -90,7 +90,7 @@ router.post('/login', login);
  *     summary: Delete user
  *     tags: [Auth]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

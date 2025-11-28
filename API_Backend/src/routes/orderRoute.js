@@ -18,7 +18,7 @@ const { verifyToken, isAdmin } = require('../middlewares/authMiddleware');
  *     tags: [Orders]
  *     description: Fetch all orders of the logged-in user
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Orders retrieved successfully
@@ -45,7 +45,7 @@ router.get("/", verifyToken, viewUserOrders);
  *     tags: [Orders]
  *     description: Fetch order details and items for a specific order
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -85,7 +85,7 @@ router.get("/:id", verifyToken, viewOrderDetails);
  *     tags: [Orders]
  *     description: Cancels a pending order and restores product stock
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -119,7 +119,7 @@ router.put("/:id/cancel", verifyToken, cancelOrder);
  *     tags: [Orders]
  *     description: Admin-only endpoint to update order status
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

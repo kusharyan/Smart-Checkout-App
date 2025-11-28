@@ -24,7 +24,7 @@ const { verifyToken, isUser } = require('../middlewares/authMiddleware');
  *       - Deducts product stock
  *       - Deactivates cart
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       201:
  *         description: Order placed successfully

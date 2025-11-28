@@ -18,7 +18,7 @@ const { upload } = require('../middlewares/uploadMiddleware');
  *     summary: Get all products
  *     tags: [Products]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Product list retrieved
@@ -32,7 +32,7 @@ router.get('/', verifyToken, getAllProducts);
  *     summary: Get single product
  *     tags: [Products]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -52,7 +52,7 @@ router.get('/:id', verifyToken, getSingleProduct );
  *     summary: Add new product
  *     tags: [Products]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -85,7 +85,7 @@ router.post('/add', verifyToken, isAdmin, upload.single('image'), addProduct);
  *     summary: Update product
  *     tags: [Products]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -122,7 +122,7 @@ router.put('/update/:id', verifyToken, isAdmin, upload.single('image'), updatePr
  *     summary: Update product stock
  *     tags: [Products]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -152,7 +152,7 @@ router.patch('/stock/:id', verifyToken, isAdmin, updateStock);
  *     summary: Delete product
  *     tags: [Products]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
